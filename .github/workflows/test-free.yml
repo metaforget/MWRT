@@ -65,3 +65,7 @@ jobs:
           sudo -E apt clean
           echo 'After 剩余空间：'
           df -h /
+
+      - name: Show args
+        run: |
+          echo 'CPU线程数：'$(nproc)
