@@ -37,6 +37,11 @@ jobs:
       #    sudo -E apt clean
       #    sudo -E timedatectl set-timezone "Asia/Shanghai"
       
+      - name: Show vars
+        run: |
+          echo 'CPU线程数：'$(nproc)
+          echo 'CPU线程数+1：'$($(nproc)+1)
+          echo 'CPU线程数+1(其它教程)：'$(($(nproc)+1))
       
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
@@ -65,7 +70,3 @@ jobs:
           sudo -E apt clean
           echo 'After 剩余空间：'
           df -h /
-
-      - name: Show args
-        run: |
-          echo 'CPU线程数：'$(nproc)
