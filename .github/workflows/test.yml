@@ -45,6 +45,7 @@ jobs:
           ls -al
           sed -i "1a LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
           echo '展示uci预设文件内容'
+          cat 99-custom
           mkdir -p ../imm/files/etc/uci-defaults
           cp 99-custom ../imm/files/etc/uci-defaults/
       
