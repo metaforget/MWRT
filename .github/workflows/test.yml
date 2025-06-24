@@ -26,8 +26,23 @@ jobs:
         with: 
           ref: main
 
-      - name: work dir
+      - name: work dir 1
         run: |
+          echo '展示工作目录\n'
+          pwd
+          ls -al
+          cd ../
+      
+      - name: Checkout MWRT
+        uses: actions/checkout@v4
+        with: 
+          repository: immortalwrt/immortalwrt
+          ref: v24.10.1 
+          fetch-depth: '1'
+      
+      - name: wor dir 2
+        run: |
+          cd ../
           echo '展示工作目录\n'
           pwd
           ls -al
