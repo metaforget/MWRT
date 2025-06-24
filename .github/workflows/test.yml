@@ -25,31 +25,18 @@ jobs:
         uses: actions/checkout@v4
         with: 
           ref: main
-
-      - name: work dir 1
-        run: |
-          echo '展示工作目录\n'
-          pwd
-          ls -aRl
-          cd /
-          
-      - name: work dir 1
-        run: |
-          echo '展示工作目录\n'
-          pwd
-          ls -aRl
-          cd ../
+          path: 'mwrt'
       
       - name: Checkout MWRT
         uses: actions/checkout@v4
         with: 
           repository: immortalwrt/immortalwrt
-          ref: v24.10.1 
-          fetch-depth: '1'
+          ref: v24.10.1
+          path: 'imm'
       
-      - name: wor dir 3
+      - name: wor dir 1
         run: |
           cd ../
           echo '展示工作目录\n'
           pwd
-          ls -Rl
+          ls -al
