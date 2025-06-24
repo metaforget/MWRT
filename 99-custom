@@ -1,0 +1,17 @@
+
+
+sed -i 's|^root:[^:]*:|root:'"${LOGIN_PASSWD}"':|' /etc/shadow
+
+uci -q batch << EOI
+set network.lan.ipaddr='10.0.0.1'
+set system.@imm_init[0].opkg_mirror='https://mirrors.ustc.edu.cn/immortalwrt' 
+delete firewall.@defaults[0].flow_offloading 
+delete firewall.@defaults[0].flow_offloading_hw
+EOI
+
+uci commit
+
+service network reload
+service firewall reload
+
+exit 0
