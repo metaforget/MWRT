@@ -19,7 +19,7 @@ jobs:
 
     name: Build MWRT Firmware
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout MWRT
