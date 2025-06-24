@@ -43,7 +43,7 @@ jobs:
           echo '改预设文件内容，为其添加默认的密码LOGIN_PASSWD'
           cd mwrt
           ls -al
-          sed -i "1a ${LOGIN_PASSWD}" 99-custom
+          sed -i "1a LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
           mkdir -p ../imm/files/etc/uci-defaults
           cp 99-custom ../imm/files/etc/uci-defaults/
       
