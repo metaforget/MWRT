@@ -56,14 +56,14 @@ jobs:
           cd imm
           ls -al
           sed -i "1a src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
-          sed -i "2a src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
-          sed -i "2a src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
+          sed -i "1a src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
+          sed -i "1a src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
           echo '展示feeds配置文件内容：'
           cat feeds.conf.default
           cd ..
           git clone --depth=1 https://github.com/sirpdboy/luci-app-advanced.git
           mkdir -p imm/package/meta/
-          cp luci-app-advanced imm/package/meta/
+          cp -r luci-app-advanced imm/package/meta/
           echo '展示package'
           ls -aR package
       
