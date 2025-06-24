@@ -40,8 +40,7 @@ jobs:
       - name: Show vars
         run: |
           echo 'CPU线程数：'$(nproc)
-          echo 'CPU线程数+1：'$($(nproc)+1)
-          echo 'CPU线程数+1(其它教程)：'$(($(nproc)+1))
+          echo 'CPU线程数+1：'$(($(nproc)+1))
       
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
