@@ -24,7 +24,7 @@ jobs:
       - name: Checkout MWRT
         uses: actions/checkout@v4
         with: 
-          ref: v23.05.5
+          ref: main
 
       - name: work dir
         run: |
