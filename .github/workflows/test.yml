@@ -43,9 +43,7 @@ jobs:
           echo '改预设文件内容，为其添加默认的密码LOGIN_PASSWD'
           cd mwrt
           ls -al
-          sed -i "1a LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
-          echo '展示uci预设文件内容'
-          cat 99-custom
+          sed -i "1i LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
           mkdir -p ../imm/files/etc/uci-defaults
           cp 99-custom ../imm/files/etc/uci-defaults/
       
@@ -57,9 +55,9 @@ jobs:
           echo '改feeds文件，把它移到package'
           cd imm
           ls -al
-          sed -i "1a src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
-          sed -i "1a src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
-          sed -i "1a src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
+          sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
+          sed -i "1i src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
+          sed -i "1i src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
           echo '展示feeds配置文件内容：'
           cat feeds.conf.default
           cd ..
@@ -67,7 +65,7 @@ jobs:
           mkdir -p imm/package/meta/
           cp -r luci-app-advanced imm/package/meta/
           echo '展示package'
-          ls -aR imm/package
+          ls -al imm/package
       
       
       - name: wor dir
