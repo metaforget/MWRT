@@ -30,7 +30,14 @@ jobs:
         run: |
           echo '展示工作目录\n'
           pwd
-          ls -al
+          ls -aRl
+          cd /
+          
+      - name: work dir 1
+        run: |
+          echo '展示工作目录\n'
+          pwd
+          ls -aRl
           cd ../
       
       - name: Checkout MWRT
@@ -40,9 +47,9 @@ jobs:
           ref: v24.10.1 
           fetch-depth: '1'
       
-      - name: wor dir 2
+      - name: wor dir 3
         run: |
           cd ../
           echo '展示工作目录\n'
           pwd
-          ls -al
+          ls -Rl
