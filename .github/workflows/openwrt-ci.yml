@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: MWRT-CI
+name: Openwrt-CI
 
 on: workflow_dispatch
 
@@ -14,9 +14,9 @@ permissions:
 
 jobs:
 
-  build_mwrt:
+  build_openwrt:
 
-    name: Build MWRT Firmware
+    name: Build Openwrt Firmware
 
     runs-on: ubuntu-22.04
 
@@ -37,7 +37,7 @@ jobs:
           sudo -E apt clean
           sudo -E timedatectl set-timezone "Asia/Shanghai"
 
-      - name: Checkout MWRT
+      - name: Checkout Openwrt
         uses: actions/checkout@v4
         with: 
           ref: v23.05.5
@@ -90,17 +90,17 @@ jobs:
       - name: Upload buildinfo
         uses: actions/upload-artifact@v4
         with:
-          name: MWRT_buildinfo
+          name: Openwrt_buildinfo
           path: ./artifact/buildinfo/
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: MWRT_package
+          name: Openwrt_package
           path: ./artifact/package/
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: MWRT_firmware
+          name: Openwrt_firmware
           path: ./bin/targets/
