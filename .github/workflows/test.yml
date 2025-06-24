@@ -30,3 +30,4 @@ jobs:
         run: |
           echo '展示工作目录\n'
           pwd
+          ls -al
