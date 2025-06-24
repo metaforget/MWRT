@@ -44,6 +44,7 @@ jobs:
           cd mwrt
           ls -al
           sed -i "1a LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
+          echo '展示uci预设文件内容'
           mkdir -p ../imm/files/etc/uci-defaults
           cp 99-custom ../imm/files/etc/uci-defaults/
       
@@ -65,7 +66,7 @@ jobs:
           mkdir -p imm/package/meta/
           cp -r luci-app-advanced imm/package/meta/
           echo '展示package'
-          ls -aR package
+          ls -aR imm/package
       
       
       - name: wor dir
