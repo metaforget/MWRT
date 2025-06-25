@@ -1,6 +1,6 @@
 
 
-sed -i 's|^root:[^:]*:|root:'"${LOGIN_PASSWD}"':|' /etc/shadow
+sed -i "s|^root:[^:]*:|root:${LOGIN_PASSWD}:|" /etc/shadow
 
 uci -q batch << EOI
 set network.lan.ipaddr='10.0.0.1'
