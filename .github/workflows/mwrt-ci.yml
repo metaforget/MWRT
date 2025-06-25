@@ -89,7 +89,7 @@ jobs:
           echo '改预设文件内容，为其添加默认的密码LOGIN_PASSWD'
           cd mwrt
           ls -al
-          sed -i "1i LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
+          sed -i "1i LOGIN_PASSWD='$LOGIN_PASSWD'" 99-custom
           mkdir -p ../imm/files/etc/uci-defaults
           cp 99-custom ../imm/files/etc/uci-defaults/
       
@@ -100,7 +100,6 @@ jobs:
         working-directory: ${{ env.IMM_DIR }}
         run: |
           echo '改feeds文件'
-          ls -al
           sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
           sed -i "1i src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
           sed -i "1i src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
@@ -127,8 +126,6 @@ jobs:
           echo '展示替换后的.config'
           cat .config
           make defconfig
-          echo '展示最后的.config'
-          cat .config
 
       - name: Download packages
         working-directory: ${{ env.IMM_DIR }}
@@ -161,15 +158,18 @@ jobs:
         with:
           name: MWRT_buildinfo
           path: ${{ env.IMM_DIR }}/artifact/buildinfo/
+          retention-days: 30   # artifact过期时间，天
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
           name: MWRT_package
           path: ${{ env.IMM_DIR }}/artifact/package/
+          retention-days: 30   # artifact过期时间，天
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: MWRT_firmware
           path: ${{ env.IMM_DIR }}/bin/targets/
+          retention-days: 30   # artifact过期时间，天
