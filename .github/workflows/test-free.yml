@@ -43,7 +43,7 @@ jobs:
         run: |
           echo 'CPU线程数：'$(nproc)
           echo 'CPU线程数+1：'$(($(nproc)+1))
-          echo "233" 99-custom
+          echo "233" > 99-custom
           sed -i "1i LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
       
       - name: Upload file
