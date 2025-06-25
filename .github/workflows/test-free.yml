@@ -38,9 +38,19 @@ jobs:
       #    sudo -E timedatectl set-timezone "Asia/Shanghai"
       
       - name: Show vars
+        env:
+          LOGIN_PASSWD: ${{ secrets.LOGIN_PASSWD }}
         run: |
           echo 'CPU线程数：'$(nproc)
           echo 'CPU线程数+1：'$(($(nproc)+1))
+          touch 99-custom
+          sed -i "1i LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
+      
+      - name: Upload file
+        uses: actions/upload-artifact@v4
+        with:
+          name: 99-custom
+          path: ./99-custom
       
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
