@@ -100,6 +100,7 @@ jobs:
         working-directory: ${{ env.IMM_DIR }}
         run: |
           echo '改feeds文件'
+          sed -i "1i src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" feeds.conf.default
           sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
           sed -i "1i src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
           sed -i "1i src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
@@ -149,8 +150,9 @@ jobs:
         run: |
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
-          rm -rf $(find ./bin/targets/ -type d -name "packages")
-          cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+          #rm -rf $(find ./bin/targets/ -type d -name "packages")
+          #cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+          cp -rf ./bin/packages/. ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
 
       - name: Upload buildinfo
