@@ -10,8 +10,4 @@ delete firewall.@defaults[0].flow_offloading_hw
 EOI
 
 uci commit
-
-service network reload
-service firewall reload
-
 exit 0
