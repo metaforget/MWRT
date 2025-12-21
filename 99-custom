@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sync
 
 sed -i "s|^root:[^:]*:|root:${LOGIN_PASSWD}:|" /etc/shadow
