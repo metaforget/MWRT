@@ -150,10 +150,12 @@ jobs:
         run: |
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
+          mkdir -p ./artifact/targets
           #rm -rf $(find ./bin/targets/ -type d -name "packages")
           #cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
           cp -rf ./bin/packages/. ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
+          cp -rf ./bin/targets/x86/64/* ./artifact/targets/
 
       - name: Upload buildinfo
         uses: actions/upload-artifact@v4
@@ -173,5 +175,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MWRT_firmware
-          path: ${{ env.IMM_DIR }}/bin/targets/
+          path: ${{ env.IMM_DIR }}/artifact/targets
           retention-days: 30   # artifact过期时间，天
