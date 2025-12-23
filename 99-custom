@@ -1,9 +1,20 @@
-# 打印脚本开始执行的消息
-logger -t "99-MWRT" "Initialization started ！！"
-
+#!/bin/sh
 set -e
 
 sync
+
+# 等待挂载overlay
+i=0
+while [ $i -lt 10 ]; do
+  mount | grep -q overlay && break
+  i=$((i+1))
+  sleep 1
+done
+# 打印overlay挂载尝试次数
+echo "Overlay check done (attempt $i)" >> /root/uci-defaults-mwrt.log
+
+# 打印脚本开始执行的消息
+echo "Initialization started $(date)" >> /root/uci-defaults-mwrt.log
 
 sed -i "s|^root:[^:]*:|root:${LOGIN_PASSWD}:|" /etc/shadow
 
@@ -16,5 +27,6 @@ EOI
 
 uci commit
 
-logger -t "99-MWRT" "Initialization completed ！！"
+echo "Initialization completed $(date)" >> /root/uci-defaults-mwrt.log
+sync
 exit 0
