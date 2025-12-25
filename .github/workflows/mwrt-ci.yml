@@ -7,7 +7,13 @@
 #
 name: MWRT-CI
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - ".github/workflows/mwrt-2512.yml"
+    branches:
+      - "main"
 
 permissions:
   contents: read
