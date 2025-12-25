@@ -1,8 +1,10 @@
 name: MWRT-2512-CI
 
-
-
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "2512"
 
 permissions:
   contents: read
