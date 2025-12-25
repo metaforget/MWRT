@@ -57,7 +57,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: immortalwrt/immortalwrt
-          ref: ${{ vars.IMM_TAG }}
+          ref: ${{ vars.IMM_2512_TAG }}
           path: 'imm'
 
       # 改预设文件内容，为其添加默认的密码LOGIN_PASSWD
