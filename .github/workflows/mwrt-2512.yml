@@ -68,7 +68,7 @@ jobs:
       - name: Checkout MWRT
         uses: actions/checkout@v4
         with:
-          ref: 2512
+          ref: main
           path: 'mwrt'
 
       - name: Checkout immortalwrt
