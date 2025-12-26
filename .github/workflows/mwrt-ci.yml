@@ -106,10 +106,10 @@ jobs:
         working-directory: ${{ env.IMM_DIR }}
         run: |
           echo '改feeds文件'
+          sed -i "1i src-git bandix2 https://github.com/timsaya/luci-app-bandix.git" feeds.conf.default
+          sed -i "1i src-git bandix https://github.com/timsaya/openwrt-bandix.git" feeds.conf.default
           sed -i "1i src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" feeds.conf.default
           sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
-          sed -i "1i src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
-          sed -i "1i src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
           echo '展示feeds配置文件内容：'
           cat feeds.conf.default
           cd ..
