@@ -1,0 +1,52 @@
+#!/bin/sh
+
+set -e
+
+# 判断文件 /root/set-ip.sh 是否存在，存在即退出
+if [ -f "/root/set-ip.sh" ]; then
+    exit 0
+fi
+
+# 添加设置ip的脚步
+cat << 'EOF' > /root/set-ip.sh
+#!/bin/sh
+
+echo "OpenWrt LAN IP Config Tool"
+echo "--------------------------"
+
+# 使用双语提示，防止控制台黑方块
+printf "Please input NEW IP (default append /24) [请输入新IP]: "
+read USER_IP
+
+if [ -z "$USER_IP" ]; then
+    echo "Error: Input is empty! [错误：输入为空]"
+    exit 1
+fi
+
+case "$USER_IP" in
+    */*) FINAL_IP="$USER_IP" ;;
+    *) FINAL_IP="${USER_IP}/24" ;;
+esac
+
+printf "Change LAN to $FINAL_IP? (y/n) [确认修改吗？]: "
+read CONFIRM
+
+if [ "$CONFIRM" != "y" ] && [ "$CONFIRM" != "Y" ]; then
+    echo "Cancelled. [已取消]"
+    exit 0
+fi
+
+uci set network.lan.ipaddr="$FINAL_IP"
+uci commit network
+service network reload
+
+echo "--------------------------"
+echo "Done! Please reconnect with $FINAL_IP"
+EOF
+
+# 修改文件权限
+chmod u+x /root/set-ip.sh
+
+sync
+
+exit 0
