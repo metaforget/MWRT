@@ -167,21 +167,21 @@ jobs:
           cp -rf ./bin/targets/x86/64/* ./artifact/targets/
 
       - name: Upload buildinfo
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: MWRT_buildinfo_${{ vars.IMM_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/buildinfo/
           retention-days: 30   # artifact过期时间，天
 
       - name: Upload package
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: MWRT_package_${{ vars.IMM_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/package/
           retention-days: 30   # artifact过期时间，天
 
       - name: Upload firmware
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: MWRT_firmware_${{ vars.IMM_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/targets
