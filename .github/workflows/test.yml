@@ -21,24 +21,24 @@ jobs:
 
     name: Build MWRT Firmware
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - name: Space cleanup and Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          docker rmi `docker images -q`
-          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-          sudo -E apt-mark hold grub-efi-amd64-signed
-          sudo -E apt update
-          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-          sudo -E apt -y full-upgrade
-          sudo -E apt -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-          sudo -E systemctl daemon-reload
-          sudo -E apt -y autoremove --purge
-          sudo -E apt clean
-          sudo -E timedatectl set-timezone "Asia/Shanghai"
+      #- name: Space cleanup and Initialization environment
+      #  env:
+      #    DEBIAN_FRONTEND: noninteractive
+      #  run: |
+      #    docker rmi `docker images -q`
+      #    sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+      #    sudo -E apt-mark hold grub-efi-amd64-signed
+      #    sudo -E apt update
+      #    sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
+      #    sudo -E apt -y full-upgrade
+      #    sudo -E apt -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+      #    sudo -E systemctl daemon-reload
+      #    sudo -E apt -y autoremove --purge
+      #    sudo -E apt clean
+      #    sudo -E timedatectl set-timezone "Asia/Shanghai"
       
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
@@ -54,11 +54,11 @@ jobs:
           large-packages: true
           swap-storage: true
       
-      - name: Checkout MWRT
-        uses: actions/checkout@v4
-        with: 
-          ref: main
-          path: 'mwrt'
+      #- name: Checkout MWRT
+      #  uses: actions/checkout@v4
+      #  with: 
+      #    ref: main
+      #    path: 'mwrt'
       
       - name: Checkout immortalwrt
         uses: actions/checkout@v4
@@ -68,36 +68,36 @@ jobs:
           path: 'imm'
       
       # 改预设文件内容，为其添加默认的密码LOGIN_PASSWD
-      - name: add defaults uci-configs
-        env:
-          LOGIN_PASSWD: ${{ secrets.LOGIN_PASSWD }}
-        run: |
-          echo '改预设文件内容，为其添加默认的密码LOGIN_PASSWD'
-          cd mwrt
-          ls -al
-          sed -i "1i LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
-          mkdir -p ../imm/files/etc/uci-defaults
-          cp 99-custom ../imm/files/etc/uci-defaults/
+      #- name: add defaults uci-configs
+      #  env:
+      #    LOGIN_PASSWD: ${{ secrets.LOGIN_PASSWD }}
+      #  run: |
+      #    echo '改预设文件内容，为其添加默认的密码LOGIN_PASSWD'
+      #    cd mwrt
+      #    ls -al
+      #    sed -i "1i LOGIN_PASSWD=$LOGIN_PASSWD" 99-custom
+      #    mkdir -p ../imm/files/etc/uci-defaults
+      #    cp 99-custom ../imm/files/etc/uci-defaults/
       
       # 改feeds文件
       # 拉不在feeds中的文件
       # 把文件都放到对应目录中    
-      - name: update imm
-        working-directory: ${{ env.IMM_DIR }}
-        run: |
-          echo '改feeds文件'
-          ls -al
-          sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
-          sed -i "1i src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
-          sed -i "1i src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
-          echo '展示feeds配置文件内容：'
-          cat feeds.conf.default
-          cd ..
-          git clone --depth=1 https://github.com/sirpdboy/luci-app-advanced.git
-          mkdir -p imm/package/meta/
-          cp -r luci-app-advanced imm/package/meta/
-          echo '展示imm'
-          ls -al imm  
+      #- name: update imm
+      #  working-directory: ${{ env.IMM_DIR }}
+      #  run: |
+      #    echo '改feeds文件'
+      #    ls -al
+      #    sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
+      #    sed -i "1i src-git wrtbwmon https://github.com/brvphoenix/luci-app-wrtbwmon" feeds.conf.default
+      #    sed -i "1i src-git wrtbwmon2 https://github.com/brvphoenix/wrtbwmon" feeds.conf.default
+      #    echo '展示feeds配置文件内容：'
+      #    cat feeds.conf.default
+      #    cd ..
+      #    git clone --depth=1 https://github.com/sirpdboy/luci-app-advanced.git
+      #    mkdir -p imm/package/meta/
+      #    cp -r luci-app-advanced imm/package/meta/
+      #    echo '展示imm'
+      #    ls -al imm  
       
       - name: Update feeds
         working-directory: ${{ env.IMM_DIR }}
@@ -108,11 +108,9 @@ jobs:
       - name: Generate configuration file
         working-directory: ${{ env.IMM_DIR }}
         run: |
-          rm -f .config
-          cp ../mwrt/diffconfig .config
-          echo '展示替换.config之后的imm'
-          ls -al
           make defconfig
+          echo '展示最终的.config'
+          cat .config
 
       - name: Download packages
         working-directory: ${{ env.IMM_DIR }}
@@ -121,7 +119,7 @@ jobs:
       - name: Compile firmware
         working-directory: ${{ env.IMM_DIR }}
         run: |
-          make -j$(nproc) || make -j1 V=s
+          make -j1 V=s
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -136,24 +134,30 @@ jobs:
         run: |
           mkdir -p ./artifact/package
           mkdir -p ./artifact/buildinfo
-          rm -rf $(find ./bin/targets/ -type d -name "packages")
-          cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+          mkdir -p ./artifact/targets
+          #rm -rf $(find ./bin/targets/ -type d -name "packages")
+          #cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+          cp -rf ./bin/packages/x86_64/. ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
+          cp -rf ./bin/targets/x86/64/* ./artifact/targets/
 
       - name: Upload buildinfo
         uses: actions/upload-artifact@v4
         with:
-          name: MWRT_buildinfo
+          name: MWRT_buildinfo_${{ vars.IMM_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/buildinfo/
+          retention-days: 30   # artifact过期时间，天
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: MWRT_package
+          name: MWRT_package_${{ vars.IMM_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/package/
+          retention-days: 30   # artifact过期时间，天
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: MWRT_firmware
-          path: ${{ env.IMM_DIR }}/bin/targets/
+          name: MWRT_firmware_${{ vars.IMM_TAG }}
+          path: ${{ env.IMM_DIR }}/artifact/targets
+          retention-days: 30   # artifact过期时间，天

@@ -21,35 +21,35 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      #- name: Space cleanup and Initialization environment
-      #  env:
-      #    DEBIAN_FRONTEND: noninteractive
-      #  run: |
-      #    docker rmi `docker images -q`
-      #    sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-      #    sudo -E apt-mark hold grub-efi-amd64-signed
-      #    sudo -E apt update
-      #    sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-      #    sudo -E apt -y full-upgrade
-      #    sudo -E apt -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-      #    sudo -E systemctl daemon-reload
-      #    sudo -E apt -y autoremove --purge
-      #    sudo -E apt clean
-      #    sudo -E timedatectl set-timezone "Asia/Shanghai"
-
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
-          tool-cache: true
-          # all of these default to true, but feel free to set to
-          # "false" if necessary for your workflow
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          swap-storage: true
+      - name: Space cleanup and Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          #docker rmi `docker images -q`
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          sudo -E apt-mark hold grub-efi-amd64-signed
+          sudo -E apt update
+          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
+          sudo -E apt -y full-upgrade
+          sudo -E apt -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+          sudo -E systemctl daemon-reload
+          sudo -E apt -y autoremove --purge
+          sudo -E apt clean
+          sudo -E timedatectl set-timezone "Asia/Shanghai"
+      
+      #- name: Free Disk Space (Ubuntu)
+      #  uses: jlumbroso/free-disk-space@main
+      #  with:
+      #    # this might remove tools that are actually needed,
+      #    # if set to "true" but frees about 6 GB
+      #    tool-cache: true
+      #    # all of these default to true, but feel free to set to
+      #    # "false" if necessary for your workflow
+      #    android: true
+      #    dotnet: true
+      #    haskell: true
+      #    large-packages: true
+      #    swap-storage: true
 
       - name: Install necessary app
         run: |
@@ -58,7 +58,7 @@ jobs:
           sudo -E timedatectl set-timezone "Asia/Shanghai"
           sudo -E systemctl daemon-reload
           sudo -E apt update
-          sudo -E apt install -y build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev python3-distutils python3-setuptools rsync swig unzip zlib1g-dev file wget
+          sudo -E apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev libtool libyaml-dev libz-dev lld llvm lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip python3-ply python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev zstd
           sudo -E systemctl daemon-reload
           sudo -E apt -y autoremove --purge
           sudo -E apt clean
@@ -66,13 +66,13 @@ jobs:
           df -h /
 
       - name: Checkout MWRT
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
           path: 'mwrt'
 
       - name: Checkout immortalwrt
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: immortalwrt/immortalwrt
           ref: ${{ vars.IMM_2512_TAG }}
@@ -101,7 +101,6 @@ jobs:
           sed -i "1i src-git bandix2 https://github.com/timsaya/luci-app-bandix.git" feeds.conf.default
           sed -i "1i src-git bandix https://github.com/timsaya/openwrt-bandix.git" feeds.conf.default
           sed -i "1i src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" feeds.conf.default
-          sed -i "1i src-git openclash https://github.com/vernesong/OpenClash.git" feeds.conf.default
           sed -i "/telephony/s/^/#/" feeds.conf.default
           sed -i "/video/s/^/#/" feeds.conf.default
           echo '展示feeds配置文件内容：'
@@ -155,21 +154,21 @@ jobs:
           cp -rf ./bin/targets/x86/64/* ./artifact/targets/
 
       - name: Upload buildinfo
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: MWRT_buildinfo_${{ vars.IMM_2512_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/buildinfo/
           retention-days: 30   # artifact过期时间，天
 
       - name: Upload package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: MWRT_package_${{ vars.IMM_2512_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/package/
           retention-days: 30   # artifact过期时间，天
 
       - name: Upload firmware
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: MWRT_firmware_${{ vars.IMM_2512_TAG }}
           path: ${{ env.IMM_DIR }}/artifact/targets
